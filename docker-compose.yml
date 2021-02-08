@@ -1,0 +1,41 @@
+# http://localhost/tutorial/image-building-best-practices/
+
+version: "3.7"
+
+services:
+  app:
+    image: node:lts-alpine
+    restart: always
+    command: sh -c "yarn install && yarn run dev"
+    ports:
+      - 3001:3001
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: budgetfree
+      
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - budgetfree-postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: budgetfree
+      PGDATA: /var/lib/postgresql/data/pgdata
+
+volumes:
+  budgetfree-postgres-data:
+
+
+# docker-compose up --build
+# docker-compose up
+# docker-compose down --volumes
+# docker-compose down

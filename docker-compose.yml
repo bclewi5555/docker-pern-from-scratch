@@ -41,14 +41,14 @@ services:
   react:
     depends_on:
       - express
-    build: ./react_frontend/
+    build: ./frontend/
     container_name: react
     ports:
       - 3000:3000
     # This should match the WORKDIR in the associated Dockerfile
     working_dir: /app
     volumes:
-      - ./react_frontend/:/app
+      - ./frontend/:/app
 
 volumes:
   pg_data:
